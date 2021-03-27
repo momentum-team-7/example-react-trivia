@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Categories from './components/Categories'
+import Questions from './components/Questions'
+import { useEffect, useState } from 'react'
+import { getCategoryList } from './ajaxRequests'
 
-function App() {
+const App = () => {
+  const [categories, setCategories] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState(null)
+
+  useEffect(() => {
+    const categories = getCategoryList()
+    setCategories(categories)
+    // getCategoryList().then((data) => setCategories(data))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <main>
+      <h1>Trivia</h1>
+      {selectedCategory ? (
+        <Questions selectedCategory={selectedCategory} />
+      ) : (
+        <Categories
+          categories={categories}
+          setSelectedCategory={setSelectedCategory}
+        />
+      )}
+    </main>
+  )
 }
 
-export default App;
+export default App
