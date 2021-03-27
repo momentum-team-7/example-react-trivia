@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-
 import 'tachyons'
 
 const Categories = ({ categories, setSelectedCategory }) => {

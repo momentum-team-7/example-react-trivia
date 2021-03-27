@@ -1,25 +1,54 @@
 import { useEffect, useState } from 'react'
 import { getQuestionSet } from '../ajaxRequests'
+import AnswerChoices from './AnswerChoices'
+import Score from './Score'
+import he from 'he'
 
-const Questions = ({ category }) => {
+const Questions = ({ category, handleGoBack }) => {
   const [questions, setQuestions] = useState([])
+  const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
+  const [done, setDone] = useState(false)
 
   useEffect(() => {
-    const data = getQuestionSet()
-    setQuestions(data)
-    // getQuestionSet(category).then((data) => {
-    //   setQuestions(data)
-    // })
-  }, [])
+    const idx = currentQuestionIdx
+    if (idx > 0 && idx === questions.length - 1) {
+      setDone(true)
+    }
+  }, [currentQuestionIdx, questions])
 
-  console.log('Questions Component, questions state: ', questions)
+  useEffect(() => {
+    // const data = getQuestionSet()
+    // setQuestions(data)
+    getQuestionSet(category).then((data) => {
+      setQuestions(data)
+    })
+  }, [category])
+
+  if (done) {
+    return <Score correctAnswers="10" />
+  }
+
   return (
     <div className="questions">
-      <ul>
-        {questions.map((q) => {
-          return <li>{q.question}</li>
-        })}
-      </ul>
+      {questions.length > 0 && (
+        <>
+          <button className="goBack" onClick={handleGoBack}>
+            Go Back to Categories
+          </button>
+          <div>
+            <p>{he.decode(questions[currentQuestionIdx].question)}</p>
+            <div>
+              <ul>
+                <AnswerChoices question={questions[currentQuestionIdx]} />
+              </ul>
+            </div>
+          </div>
+        </>
+      )}
+      <button onClick={() => setCurrentQuestionIdx(currentQuestionIdx + 1)}>
+        Next Q
+      </button>
     </div>
   )
 }
