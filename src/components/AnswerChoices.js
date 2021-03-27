@@ -1,11 +1,12 @@
 import he from 'he'
 
-const AnswerChoices = ({ question }) => {
-  const choices = [question.correct_answer, ...question.incorrect_answers]
+const AnswerChoices = ({ answers, setAnswerChoice }) => {
   return (
     <ul>
-      {choices.map((option, idx) => (
-        <li key={idx}>{he.decode(option)}</li>
+      {answers.map((option, idx) => (
+        <li key={idx}>
+          {he.decode(option)} onClick={() => setAnswerChoice(option)}
+        </li>
       ))}
     </ul>
   )

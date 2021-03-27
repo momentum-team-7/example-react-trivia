@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getQuestionSet } from '../ajaxRequests'
-import AnswerChoices from './AnswerChoices'
+import Question from './Question'
 import Score from './Score'
 import he from 'he'
 
@@ -36,14 +36,7 @@ const Questions = ({ category, handleGoBack }) => {
           <button className="goBack" onClick={handleGoBack}>
             Go Back to Categories
           </button>
-          <div>
-            <p>{he.decode(questions[currentQuestionIdx].question)}</p>
-            <div>
-              <ul>
-                <AnswerChoices question={questions[currentQuestionIdx]} />
-              </ul>
-            </div>
-          </div>
+          <Question question={questions[currentQuestionIdx]} />
         </>
       )}
       <button onClick={() => setCurrentQuestionIdx(currentQuestionIdx + 1)}>
