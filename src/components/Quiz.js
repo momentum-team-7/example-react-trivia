@@ -40,17 +40,28 @@ const Quiz = ({ category, handleGoBack }) => {
     <div className="questions">
       {questions.length > 0 && (
         <>
-          <button className="goBack white bg-dark-pink" onClick={handleGoBack}>
+          <button
+            className="goBack white bg-dark-pink pa1"
+            onClick={handleGoBack}
+          >
             Quit and Go Back to Categories
           </button>
-          <Question question={questions[currentQuestionIdx]}></Question>
+          <Question
+            question={questions[currentQuestionIdx]}
+            currentScore={score}
+            setScore={setScore}
+          ></Question>
         </>
       )}
-      <NextButton
-        setCurrentQuestionIdx={() =>
-          setCurrentQuestionIdx(currentQuestionIdx + 1)
-        }
-      />
+      {!done ? (
+        <NextButton
+          setCurrentQuestionIdx={() =>
+            setCurrentQuestionIdx(currentQuestionIdx + 1)
+          }
+        />
+      ) : (
+        <Score correctAnswers={score} />
+      )}
     </div>
   )
 }

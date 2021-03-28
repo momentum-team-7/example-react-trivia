@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import clsx from 'clsx'
 import he from 'he'
 import shuffle from 'lodash/shuffle'
 
@@ -19,10 +18,7 @@ const AnswerChoices = ({ answers, checkAnswer, setAnswered }) => {
     <div className="flex flex-column">
       {shuffledAnswers.map((option, idx) => (
         <button
-          className={clsx(
-            'w-75 mv1 f6 link br1 ba bw1 ph3 pv2 mb2 dib black bg-washed-green hover-bg-light-green',
-            { 'ba bw3 bg-light-blue': false }
-          )}
+          className="w-75 mv1 f6 link br1 ba bw1 ph3 pv2 mb2 dib black bg-washed-green hover-bg-light-green"
           key={option}
           onClick={() => handleClick(option)}
         >

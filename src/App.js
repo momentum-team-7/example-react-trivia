@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <main>
-      <h1>Trivia</h1>
+      <h1>Quizz 🐝</h1>
       {selectedCategory ? (
         <Quiz
           category={selectedCategory}

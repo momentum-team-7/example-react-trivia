@@ -1,16 +1,11 @@
 import he from 'he'
 import AnswerChoices from './AnswerChoices'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import clsx from 'clsx'
 
-const Question = ({ question, children }) => {
+const Question = ({ question }) => {
   const [answered, setAnswered] = useState(false)
   const [correct, setCorrect] = useState(false)
-
-  useEffect(() => {
-    if (correct) {
-      console.log(question.question, 'correct!')
-    }
-  }, [correct, question.question])
 
   return (
     <div>
@@ -26,6 +21,21 @@ const Question = ({ question, children }) => {
             setAnswered={setAnswered}
           />
         </ul>
+      </div>
+      <div>
+        {answered && (
+          <div
+            className={clsx(
+              {
+                'bg-green': correct,
+                'bg-black': !correct,
+              },
+              'ba white pa2 mv2 w-80 b tc ttu tracked'
+            )}
+          >
+            {correct ? 'Right!' : 'Nope!'}
+          </div>
+        )}
       </div>
     </div>
   )
