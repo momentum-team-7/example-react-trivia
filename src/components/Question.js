@@ -1,7 +1,7 @@
 import he from 'he'
 import AnswerChoices from './AnswerChoices'
 import { useState } from 'react'
-import clsx from 'clsx'
+import classnames from 'classnames'
 
 const Question = ({ question }) => {
   const [answered, setAnswered] = useState(false)
@@ -25,7 +25,7 @@ const Question = ({ question }) => {
       <div>
         {answered && (
           <div
-            className={clsx(
+            className={classnames(
               {
                 'bg-green': correct,
                 'bg-black': !correct,
