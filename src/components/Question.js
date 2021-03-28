@@ -1,20 +1,38 @@
 import he from 'he'
-
 import AnswerChoices from './AnswerChoices'
-import { useEffect, useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 const Question = ({ question, children }) => {
-  const [selectedAnswer, setSelectedAnswer] = useState(null)
-  const [correct, markCorrect] = useState(false)
+  const [answered, setAnswered] = useState(false)
+  const [correct, setCorrect] = useState(false)
 
-  useEffect(() => {})
+  const checkAnswer = useCallback(
+    (result) => {
+      setCorrect(result)
+    },
+    [answered]
+  )
 
-  console.log('Question component: ', question)
+  useEffect(() => {
+    if (correct) {
+      console.log(question.question, 'correct!')
+    }
+  }, [correct, question.question])
+
   return (
     <div>
       <p>{he.decode(question.question)}</p>
       <div>
-        <ul>{children}</ul>
+        <ul>
+          <AnswerChoices
+            answers={{
+              correctAnswer: question.correct_answer,
+              incorrectAnswers: question.incorrect_answers,
+            }}
+            checkAnswer={() => checkAnswer()}
+            setAnswered={setAnswered}
+          />
+        </ul>
       </div>
     </div>
   )

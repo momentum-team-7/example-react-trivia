@@ -1,22 +1,33 @@
+import { useMemo } from 'react'
 import clsx from 'clsx'
 import he from 'he'
 import shuffle from 'lodash/shuffle'
-import { useEffect, useState } from 'react'
 
-const AnswerChoices = ({ answers, setCurrentQuestionCorrect }) => {
+const AnswerChoices = ({ answers, checkAnswer, setAnswered }) => {
   const { correctAnswer, incorrectAnswers } = answers
-  const shuffledAnswers = shuffle([correctAnswer, ...incorrectAnswers])
+  const shuffledAnswers = useMemo(
+    () => shuffle([correctAnswer, ...incorrectAnswers]),
+    [answers.correctAnswer]
+  )
+
+  const handleClick = (option) => {
+    console.log('handle click called')
+    console.log(option)
+    console.log('Assert correctAnswer === option', correctAnswer === option)
+    setAnswered(true)
+    checkAnswer(correctAnswer === option)
+  }
 
   return (
     <div className="flex flex-column">
       {shuffledAnswers.map((option, idx) => (
         <button
           className={clsx(
-            'w-75 mv1 f6 link dim br1 ba bw1 ph3 pv2 mb2 dib black',
+            'w-75 mv1 f6 link br1 ba bw1 ph3 pv2 mb2 dib black bg-washed-green hover-bg-light-green',
             { 'ba bw3 bg-light-blue': false }
           )}
-          key={idx}
-          onClick={() => setCurrentQuestionCorrect(correctAnswer === option)}
+          key={option}
+          onClick={() => handleClick(option)}
         >
           {he.decode(option)}
         </button>
