@@ -1,7 +1,6 @@
 import 'tachyons'
 
 const Categories = ({ categories, setSelectedCategory }) => {
-  console.log('categories component')
   return (
     <div className="categories ph3 mt4">
       {categories.map((category) => {
