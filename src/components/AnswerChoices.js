@@ -11,9 +11,6 @@ const AnswerChoices = ({ answers, checkAnswer, setAnswered }) => {
   )
 
   const handleClick = (option) => {
-    console.log('handle click called')
-    console.log(option)
-    console.log('Assert correctAnswer === option', correctAnswer === option)
     setAnswered(true)
     checkAnswer(correctAnswer === option)
   }

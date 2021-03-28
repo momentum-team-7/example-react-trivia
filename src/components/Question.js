@@ -1,17 +1,10 @@
 import he from 'he'
 import AnswerChoices from './AnswerChoices'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const Question = ({ question, children }) => {
   const [answered, setAnswered] = useState(false)
   const [correct, setCorrect] = useState(false)
-
-  const checkAnswer = useCallback(
-    (result) => {
-      setCorrect(result)
-    },
-    [answered]
-  )
 
   useEffect(() => {
     if (correct) {
@@ -29,7 +22,7 @@ const Question = ({ question, children }) => {
               correctAnswer: question.correct_answer,
               incorrectAnswers: question.incorrect_answers,
             }}
-            checkAnswer={() => checkAnswer()}
+            checkAnswer={setCorrect}
             setAnswered={setAnswered}
           />
         </ul>
