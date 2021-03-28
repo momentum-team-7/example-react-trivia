@@ -1,7 +1,12 @@
 import clsx from 'clsx'
 import he from 'he'
+import shuffle from 'lodash/shuffle'
+import { useEffect, useState } from 'react'
 
-const AnswerChoices = ({ answers, setAnswerChoice }) => {
+const AnswerChoices = ({ answers, setCurrentQuestionCorrect }) => {
+  const { correctAnswer, incorrectAnswers } = answers
+  const shuffledAnswers = shuffle([correctAnswer, ...incorrectAnswers])
+
   return (
     <div className="flex flex-column">
       {shuffledAnswers.map((option, idx) => (

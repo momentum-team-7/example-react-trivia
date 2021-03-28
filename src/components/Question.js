@@ -1,24 +1,20 @@
 import he from 'he'
-import shuffle from 'lodash/shuffle'
+
 import AnswerChoices from './AnswerChoices'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const Question = ({ question }) => {
-  const [answerChoice, setAnswerChoice] = useState(null)
+const Question = ({ question, children }) => {
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
+  const [correct, markCorrect] = useState(false)
 
+  useEffect(() => {})
+
+  console.log('Question component: ', question)
   return (
     <div>
       <p>{he.decode(question.question)}</p>
       <div>
-        <ul>
-          <AnswerChoices
-            answers={shuffle([
-              question.correct_answer,
-              ...question.incorrect_answers,
-            ])}
-            setAnswerChoice={setAnswerChoice}
-          />
-        </ul>
+        <ul>{children}</ul>
       </div>
     </div>
   )

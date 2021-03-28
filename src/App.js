@@ -1,5 +1,5 @@
 import Categories from './components/Categories'
-import Questions from './components/Questions'
+import Quiz from './components/Quiz'
 import { useEffect, useState } from 'react'
 import { getCategoryList } from './ajaxRequests'
 
@@ -17,7 +17,7 @@ const App = () => {
     <main>
       <h1>Trivia</h1>
       {selectedCategory ? (
-        <Questions
+        <Quiz
           category={selectedCategory}
           handleGoBack={() => setSelectedCategory(null)}
         />
