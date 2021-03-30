@@ -6,7 +6,7 @@ const AnswerChoices = ({ answers, checkAnswer, setAnswered }) => {
   const { correctAnswer, incorrectAnswers } = answers
   const shuffledAnswers = useMemo(
     () => shuffle([correctAnswer, ...incorrectAnswers]),
-    [answers.correctAnswer]
+    [correctAnswer, incorrectAnswers]
   )
 
   const handleClick = (option) => {
