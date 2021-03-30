@@ -8,7 +8,7 @@ const Quiz = ({ category, handleGoBack }) => {
   const [questions, setQuestions] = useState([])
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
   const [done, setDone] = useState(false)
-  // const [score, setScore] = useState(0)
+  const [score, setScore] = useState(0)
 
   useEffect(() => {
     const idx = currentQuestionIdx
@@ -23,18 +23,13 @@ const Quiz = ({ category, handleGoBack }) => {
     })
   }, [category])
 
-  // useEffect(() => {
-  //   if (currentQuestionCorrect) {
-  //     setScore(score + 1)
-  //   }
-  // }, [currentQuestionCorrect, score])
+  const incrementScore = () => {
+    setScore(score + 1)
+  }
 
   if (done) {
-    return <Score correctAnswers="10" />
+    return <Score numQuestions={questions.length} score={score} />
   }
-  // if (correct) {
-  //   return <h2>Right!</h2>
-  // }
 
   return (
     <div className="questions">
@@ -48,19 +43,15 @@ const Quiz = ({ category, handleGoBack }) => {
           </button>
           <Question
             question={questions[currentQuestionIdx]}
-            currentScore={score}
-            setScore={setScore}
-          ></Question>
+            incrementScore={incrementScore}
+          >
+            <NextButton
+              setCurrentQuestionIdx={() =>
+                setCurrentQuestionIdx(currentQuestionIdx + 1)
+              }
+            />
+          </Question>
         </>
-      )}
-      {!done ? (
-        <NextButton
-          setCurrentQuestionIdx={() =>
-            setCurrentQuestionIdx(currentQuestionIdx + 1)
-          }
-        />
-      ) : (
-        <Score correctAnswers={score} />
       )}
     </div>
   )
